@@ -3,7 +3,7 @@ import data
 # import reservation
 
 def validate_theater():
-    data_list=data.sort_data(data.File_R('theater.txt'),0)
+    data_list=data.sort_data(data.file_r('theater.txt'),0)
     prev_id=-1
     for arr in data_list:
         if len(arr) !=2:   
@@ -21,7 +21,7 @@ def validate_theater():
                 exit()
 
 def validate_seat():
-    data_list=data.sort_data(data.File_R('theater.txt'),0)
+    data_list=data.sort_data(data.file_r('theater.txt'),0)
     prev_id=-1
     for arr in data_list:
         if len(arr) !=3:   
@@ -39,7 +39,7 @@ def validate_seat():
                 exit()
 
 def validate_movie():
-    data_list=data.sort_data(data.File_R('theater.txt'),0)
+    data_list=data.sort_data(data.file_r('theater.txt'),0)
     prev_id=-1
     for arr in data_list:
         if len(arr) !=3:   
@@ -61,7 +61,7 @@ def validate_movie():
                 print('time 형식 오류')
                 exit()
 def validate_schedule():
-    data_list=data.sort_data(data.File_R('theater.txt'),0)
+    data_list=data.sort_data(data.file_r('theater.txt'),0)
     prev_id=-1
     for arr in data_list:
         if len(arr) !=5:   
@@ -83,7 +83,7 @@ def validate_schedule():
                 exit()
             
 def validate_ticket():
-    data_list=data.sort_data(data.File_R('ticket.txt'),0)
+    data_list=data.sort_data(data.file_r('ticket.txt'),0)
     prev_id=-1
     for arr in data_list:
         if len(arr) !=4:   
@@ -101,7 +101,7 @@ def validate_ticket():
                 exit()
 
 def validate_reservation():
-    data_list=data.sort_data(data.File_R('reservation.txt'),0)
+    data_list=data.sort_data(data.file_r('reservation.txt'),0)
     prev_id=-1
     for arr in data_list:
         if len(arr) !=4:   
@@ -119,7 +119,7 @@ def validate_reservation():
                 exit()            
                 
 def validate_user():
-    data_list=data.sort_data(data.File_R('user.txt'),0)
+    data_list=data.sort_data(data.file_r('user.txt'),0)
     prev_id=-1
     for arr in data_list:
         if len(arr) !=4:   

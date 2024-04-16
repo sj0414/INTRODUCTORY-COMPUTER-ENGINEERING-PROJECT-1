@@ -174,14 +174,15 @@ def movieDeleteMenu():
             # 프롬프트에서 문구 변경 필요해요!
             print("0과 정수로만 이루어진 길이가 3인 숫자입니다. 다시 입력해주세요.")
 
-
 def readMovie():
-    movieTable = []
-    with open("movie.txt", "r", encoding="utf-8") as f:
-        for line in f:
-            id, movie, time = line.strip().split("/")
-            movieTable.append((id, movie, time))
-    return movieTable
+    return data.get_movie_list()
+
+    # movieTable = []
+    # with open("movie.txt", "r", encoding="utf-8") as f:
+    #     for line in f:
+    #         id, movie, time = line.strip().split("/")
+    #         movieTable.append((id, movie, time))
+    # return movieTable
 
 
 def writeMovie(id, movie, time):
@@ -192,9 +193,9 @@ def writeMovie(id, movie, time):
     elif (100 <= id):
         newID = f"{id + 1}"
 
-    with open("movie.txt", "a", encoding="utf-8") as f:
-        f.write(f"{newID}/{movie}/{time}\n")
-
+    data.add_movie(newID, movie, time)
+    # with open("movie.txt", "a", encoding="utf-8") as f:
+    #     f.write(f"{newID}/{movie}/{time}\n")
 
 def editMovie1(id, movie):
     movieTable = readMovie()  # 기존 영화 목록을 읽어옴
