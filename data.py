@@ -1,30 +1,3 @@
-#base function
-def data_parsing(array):
-    parsed_data=[]
-    for str in array:
-        str.split('/')
-        parsed_data.append(str)
-    return parsed_data
-
-def sort_data(data_list,index):
-    return sorted(data_list,key=lambda x:x[index])
-
-def File_A(path,content):
-    f = open(path,'a',encoding='utf-8')
-    f.write(content)
-    f.close()
-
-def File_I(path,content):
-    f = open(path,'w',encoding='utf-8')
-    f.write(content)
-    f.close()
-    
-def File_R(path):
-    f = open(path,'r',encoding='utf-8')
-    data_list=f.read()
-    f.close()
-    return data_parsing(data_list)
-
 #theater
 def add_Theater(ID,name):
     File_A("theater.txt",ID+'/'+name+'\n')
@@ -80,4 +53,32 @@ def add_user(reservation_person_ID,password):
 def get_user_list():
     user_list=File_R("reservation.txt")
     return user_list
+
+
+def File_A(path,content):
+    f = open(path,'a',encoding='utf-8')
+    f.write(content)
+    f.close()
+
+def File_I(path,content):
+    f = open(path,'w',encoding='utf-8')
+    f.write(content)
+    f.close()
+    
+def File_R(path):
+    f = open(path,'r',encoding='utf-8')
+    data_list=f.read()
+    f.close()
+    return data_parsing(data_list)
+
+#base function
+def data_parsing(array):
+    parsed_data=[]
+    for str in array:
+        str.split('/')
+        parsed_data.append(str)
+    return parsed_data
+
+def sort_data(data_list,index):
+    return sorted(data_list,key=lambda x:x[index])
 

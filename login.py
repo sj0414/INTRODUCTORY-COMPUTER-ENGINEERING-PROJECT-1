@@ -1,6 +1,73 @@
 import sys
+import administrator
 # import data
 # import reservation
+
+
+def input_date_time():
+    while True:
+        print("[날짜 및 시간 입력]")
+        print("날짜와 현재 시간을 입력해주세요.")
+        print("형식: (<날짜><space><시간>)")
+        user_input = input("입력: ")
+
+        date_str = user_input[:8]
+        time_str = user_input[9:]
+        #print(date_str)
+        #print(time_str)
+        # 입력 형식 및 문법 검증
+        if (len(user_input) != 14 or user_input[8] != ' '
+                or not validate_date_syntax(date_str)) or not validate_time_syntax(time_str):
+            print("올바르지 않은 입력 형식입니다. 다시 입력해주세요.")
+            continue
+
+        # 날짜와 시간 추출
+        date_str, time_str = user_input.split()
+
+        # 의미규칙 검증 (여기에 추가적인 검증을 수행할 수 있습니다)
+        if not validate_date_semantics(date_str) or not validate_time_semantics(time_str):
+            print("예매가능한 영화가 없습니다. 다시 입력해주세요.")
+            continue
+
+        # 모든 검증 통과시 True 반환
+        return user_input
+    
+
+def movie_theater_menu():
+    print("[건국 영화관]")
+    print("1. 로그인")
+    print("2. 관리자모드")
+    print("3. 종료")
+    while True:
+        choice = int(input("메뉴 입력: "))
+        if choice == 1:
+            print("로그인을 시작합니다.")
+            login()
+        elif choice == 2:
+            print("관리자 모드를 시작합니다.")
+            # todo : 관리자 모드 실행 함수
+            administrator.manageMenu()
+        elif choice == 3:
+            print("프로그램을 종료합니다.")
+            sys.exit(0)
+        else:
+            print("입력이 올바르지 않습니다. 다시 입력해 주세요.")
+
+
+def login():
+    while True:
+        reserver_id = input("아이디(4자리 숫자)를 입력하세요 : ")
+
+        if not validate_reserver_id(reserver_id):
+            print("아이디는 4자리 숫자여야 합니다. 다시 입력해주세요.")
+            continue
+        else:
+            break
+
+    check_reserver(reserver_id)
+    # todo : 예약자 메뉴 출력
+
+    return reserver_id
 
 
 def validate_date_syntax(date_str):
@@ -54,59 +121,7 @@ def validate_time_semantics(time_str):
 
     return True
 
-
 # todo : def check_schedule(date_str, time_str): # 입력한 날짜 뒤에 영화 스케쥴이 있는지 확인
-
-
-def input_date_time():
-    while True:
-        print("[날짜 및 시간 입력]")
-        print("날짜와 현재 시간을 입력해주세요.")
-        print("형식: (<날짜><space><시간>)")
-        user_input = input("입력: ")
-
-        date_str = user_input[:8]
-        time_str = user_input[9:]
-        #print(date_str)
-        #print(time_str)
-        # 입력 형식 및 문법 검증
-        if (len(user_input) != 14 or user_input[8] != ' '
-                or not validate_date_syntax(date_str)) or not validate_time_syntax(time_str):
-            print("올바르지 않은 입력 형식입니다. 다시 입력해주세요.")
-            continue
-
-        # 날짜와 시간 추출
-        date_str, time_str = user_input.split()
-
-        # 의미규칙 검증 (여기에 추가적인 검증을 수행할 수 있습니다)
-        if not validate_date_semantics(date_str) or not validate_time_semantics(time_str):
-            print("예매가능한 영화가 없습니다. 다시 입력해주세요.")
-            continue
-
-        # 모든 검증 통과시 True 반환
-        return user_input
-
-
-def movie_theater_menu():
-    print("[건국 영화관]")
-    print("1. 로그인")
-    print("2. 관리자모드")
-    print("3. 종료")
-    while True:
-        choice = int(input("메뉴 입력: "))
-
-        if choice == 1:
-            print("로그인을 시작합니다.")
-            login()
-        elif choice == 2:
-            print("관리자 모드를 시작합니다.")
-            # todo : 관리자 모드 실행 함수
-        elif choice == 3:
-            print("프로그램을 종료합니다.")
-            sys.exit(0)
-        else:
-            print("입력이 올바르지 않습니다. 다시 입력해 주세요.")
-
 
 def validate_reserver_id(reserver_id):
     # 문법 형식 검증
@@ -116,20 +131,12 @@ def validate_reserver_id(reserver_id):
     return True
 
 
-def login():
-    while True:
-        reserver_id = input("아이디(4자리 숫자)를 입력하세요 : ")
-
-        if not validate_reserver_id(reserver_id):
-            print("아이디는 4자리 숫자여야 합니다. 다시 입력해주세요.")
-            continue
-        else:
-            break
-
-    check_reserver(reserver_id)
-    # todo : 예약자 메뉴 출력
-
-    return reserver_id
+def check_reserver(reserver_id, password=''):
+    if find_reserver_id(reserver_id):
+        return reserver_id
+    else:
+        add_reserver(reserver_id, password)
+        return reserver_id
 
 
 def find_reserver_id(reserver_id):
@@ -148,14 +155,3 @@ def find_reserver_id(reserver_id):
 def add_reserver(reserver_id, password=''):
     with open('user.txt', 'a', encoding='utf-8') as file:
         file.write(f"{reserver_id}/{password}\n")
-
-
-def check_reserver(reserver_id, password=''):
-    if find_reserver_id(reserver_id):
-        return reserver_id
-    else:
-        add_reserver(reserver_id, password)
-        return reserver_id
-
-
-
