@@ -206,7 +206,7 @@ def editMovie1(id, movie):
             movieTable[a] = (i, movie, t)  # 새로운 영화명으로 수정
 
     # 수정된 내용을 파일에 기록
-    with open("movie.txt", 'w', encoding='utf-8') as f:
+    with open("data/" + "movie.txt", 'w', encoding='utf-8') as f:
         for i, m, t in movieTable:
             f.write(f"{i}/{m}/{t}\n")
 
@@ -220,7 +220,7 @@ def editMovie2(id, time):
             movieTable[a] = (i, m, time)  # 새로운 러닝타임으로 수정
 
     # 수정된 내용을 파일에 기록
-    with open("movie.txt", 'w', encoding='utf-8') as f:
+    with open("data/" + "movie.txt", 'w', encoding='utf-8') as f:
         for i, m, t in movieTable:
             f.write(f"{i}/{m}/{t}\n")
 
@@ -232,6 +232,6 @@ def deleteMovie(id):
     movieTable = [movie for movie in movieTable if movie[0] != id]
 
     # 수정된 내용을 파일에 기록
-    with open("movie.txt", 'w', encoding='utf-8') as f:
+    with open("data/" + "movie.txt", 'w', encoding='utf-8') as f:
         for i, m, t in movieTable:
             f.write(f"{i}/{m}/{t}\n")

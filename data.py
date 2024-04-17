@@ -56,17 +56,17 @@ def get_user_list():
 
 
 def file_a(path,content):
-    f = open(path,'a',encoding='utf-8')
+    f = open("data/" + path,'a',encoding='utf-8')
     f.write(content)
     f.close()
 
 def file_i(path,content):
-    f = open(path,'w',encoding='utf-8')
+    f = open("data/" + path,'w',encoding='utf-8')
     f.write(content)
     f.close()
     
 def file_r(path):
-    f = open(path,'r',encoding='utf-8')
+    f = open("data/" + path,'r',encoding='utf-8')
     data_list=f.readlines()
     f.close()
     return data_parsing(data_list)
