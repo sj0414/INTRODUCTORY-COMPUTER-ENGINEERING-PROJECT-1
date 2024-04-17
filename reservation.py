@@ -1,4 +1,7 @@
-def print_reserve_menu():
+import sys
+import data
+
+def print_reserve_menu(reserver_id):
     print("[메인 메뉴] 실행할 메뉴를 선택하세요.")
     print("1. 영화예매하기")
     print("2. 영화조회하기")
@@ -22,7 +25,7 @@ def print_reserve_menu():
 
 def reserve():
     # 상영 스케쥴 출력
-    schedule_list = get_Schedule_list()
+    schedule_list = data.get_schedule_list()
     print(schedule_list)
     # 영화목록
     # 시간표아이디 영화제목  날짜/상영시간     예약인원/최대예약인원   상영관

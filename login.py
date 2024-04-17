@@ -1,5 +1,7 @@
 import sys
 import administrator
+import reservation
+import data
 # import data
 # import reservation
 
@@ -42,7 +44,8 @@ def movie_theater_menu():
         choice = int(input("메뉴 입력: "))
         if choice == 1:
             print("로그인을 시작합니다.")
-            login()
+            user_id = login()
+            reservation.print_reserve_menu(user_id)
         elif choice == 2:
             print("관리자 모드를 시작합니다.")
             # todo : 관리자 모드 실행 함수
@@ -55,19 +58,20 @@ def movie_theater_menu():
 
 
 def login():
-    while True:
-        reserver_id = input("아이디(4자리 숫자)를 입력하세요 : ")
 
-        if not validate_reserver_id(reserver_id):
+    while True:
+        user_id = input("아이디(4자리 숫자)를 입력하세요 : ")
+
+        if not validate_user_id(user_id):
             print("아이디는 4자리 숫자여야 합니다. 다시 입력해주세요.")
             continue
         else:
             break
 
-    check_reserver(reserver_id)
+    ret = check_reserver(user_id)
     # todo : 예약자 메뉴 출력
 
-    return reserver_id
+    return ret
 
 
 def validate_date_syntax(date_str):
@@ -123,35 +127,41 @@ def validate_time_semantics(time_str):
 
 # todo : def check_schedule(date_str, time_str): # 입력한 날짜 뒤에 영화 스케쥴이 있는지 확인
 
-def validate_reserver_id(reserver_id):
+def validate_user_id(user_id):
     # 문법 형식 검증
-    if not reserver_id.isdigit() or len(reserver_id) != 4:
+    if not user_id.isdigit() or len(user_id) != 4:
         return False
 
     return True
 
 
-def check_reserver(reserver_id, password=''):
-    if find_reserver_id(reserver_id):
-        return reserver_id
+def check_reserver(user_id):
+    if is_user_id_exist(user_id):
+        return user_id
     else:
-        add_reserver(reserver_id, password)
-        return reserver_id
+        add_user(user_id)
+        return user_id
 
 
-def find_reserver_id(reserver_id):
+def is_user_id_exist(user_id):
     found = False
     # user.txt 무결성 검사 진행 to do
-    with open('user.txt', 'r', encoding='utf-8') as file:
-        for line in file:
-            existing_id, _ = line.strip().split('/')
-            if existing_id == reserver_id:
+    user_list = data.get_user_list()
+    for (user_id1, ) in user_list:
+            if user_id1 == user_id:
                 found = True
                 break
+    # with open('user.txt', 'r', encoding='utf-8') as file:
+    #     for line in file:
+    #         existing_id, _ = line.strip().split('/')
+    #         if existing_id == user_id:
+    #             found = True
+    #             break
 
     return found
 
 
-def add_reserver(reserver_id, password=''):
-    with open('user.txt', 'a', encoding='utf-8') as file:
-        file.write(f"{reserver_id}/{password}\n")
+def add_user(user_id):
+    data.add_user(user_id)
+    # with open('user.txt', 'a', encoding='utf-8') as file:
+    #     file.write(f"{user_id}/{password}\n")
