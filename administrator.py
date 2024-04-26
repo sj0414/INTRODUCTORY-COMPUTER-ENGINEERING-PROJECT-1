@@ -1,4 +1,3 @@
-import os
 import data
 
 def manage_menu():
