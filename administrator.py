@@ -7,8 +7,6 @@ def manage_menu():
         if menu == "1":
             manage_menu()
         elif menu == "2":
-            print("")
-            # theaterManageMenu()
             theater.manage_cinema()
         elif menu == "3":
             print("")
