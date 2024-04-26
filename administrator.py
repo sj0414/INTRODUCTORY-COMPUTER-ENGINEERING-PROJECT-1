@@ -1,14 +1,15 @@
 import data
-
+import theater
 def manage_menu():
     while True:
         print("[관리자 모드] 실행할 메뉴를 선택하세요.")
         menu = input("1. 영화 관리\n2. 상영관 관리\n3. 상영스케줄 관리\n4. 종료\n입력 : ")
         if menu == "1":
-            movie_manage_menu()
+            manage_menu()
         elif menu == "2":
             print("")
             # theaterManageMenu()
+            theater.manage_cinema()
         elif menu == "3":
             print("")
             # scheduleManageMenu()
@@ -19,7 +20,7 @@ def manage_menu():
             print("화면에 출력된 숫자 내에서 입력해주세요.")
 
 
-def movie_manage_menu():
+def manage_menu():
     while True:
         print("[관리자 모드] 실행할 메뉴를 선택하세요.")
         menu = input("1. 영화 추가\n2. 영화 수정\n3. 영화 삭제\n4. 종료\n입력 : ")
